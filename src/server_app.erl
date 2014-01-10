@@ -5,9 +5,10 @@
 -export([stop/1]).
  
 start(_Type, _Args) ->
+    { ok, SocketMessageBus} = messagebus:start_link(socketmessagebus),
     Dispatch = cowboy_router:compile([
         {'_', [
-               {"/comms", comms_handler, []},
+               {"/comms", comms_handler, SocketMessageBus},
                {"/[...]", cowboy_static, {dir, "../www"}},
                {'_', hello_handler, []}
               ]}
