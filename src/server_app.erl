@@ -7,6 +7,7 @@
 start(_Type, _Args) ->
     Dispatch = cowboy_router:compile([
         {'_', [
+               {"/comms", comms_handler, []},
                {"/[...]", cowboy_static, {dir, "../www"}},
                {'_', hello_handler, []}
               ]}
