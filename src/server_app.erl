@@ -6,8 +6,10 @@
  
 start(_Type, _Args) ->
     Dispatch = cowboy_router:compile([
-        %% {URIHost, list({URIPath, Handler, Opts})}
-        {'_', [{'_', hello_handler, []}]}
+        {'_', [
+               {"/[...]", cowboy_static, {dir, "../www"}},
+               {'_', hello_handler, []}
+              ]}
     ]),
     %% Name, NbAcceptors, TransOpts, ProtoOpts
     cowboy:start_http(my_http_listener, 100,
